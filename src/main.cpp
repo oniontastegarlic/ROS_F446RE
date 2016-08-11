@@ -18,12 +18,14 @@ int period;
 ros::NodeHandle nh;
 
 void led_cb(const std_msgs::UInt16 &cmd_msg){
-  if(cmd_msg.data == 1){
+  /*if(cmd_msg.data == 1){
     period = 100;
   }
   else{
     period = 1000;
   }
+  */
+  period = cmd_msg.data;
   led1.period_ms(period);
   led1.write(0.50f);
 }
