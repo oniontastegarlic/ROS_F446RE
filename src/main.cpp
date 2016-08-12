@@ -10,14 +10,14 @@ int main() {
 }
 */
 
-#include <std_msgs/UInt16.h>
+#include <std_msgs/Float32.h>
 
-PwmOut led1(LED1);
-int period;
+PwmOut led1(PC_9);
+float per;
 
 ros::NodeHandle nh;
 
-void led_cb(const std_msgs::UInt16 &cmd_msg){
+void led_cb(const std_msgs::Float32 &cmd_msg){
   /*if(cmd_msg.data == 1){
     period = 100;
   }
@@ -25,12 +25,12 @@ void led_cb(const std_msgs::UInt16 &cmd_msg){
     period = 1000;
   }
   */
-  period = cmd_msg.data;
-  led1.period_ms(period);
-  led1.write(0.50f);
+  per = cmd_msg.data;
+  led1.period(100);
+  led1.write(per);
 }
 
-ros::Subscriber<std_msgs::UInt16> sub("led", led_cb);
+ros::Subscriber<std_msgs::Float32> sub("led", led_cb);
 
 int main(){
   nh.initNode();
